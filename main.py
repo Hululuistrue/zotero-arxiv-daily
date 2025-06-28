@@ -169,7 +169,10 @@ if __name__ == '__main__':
           exit(0)
     else:
         logger.info("Reranking papers...")
-        papers = rerank_paper(papers, corpus)
+        if not corpus:
+            print("⚠️ Warning: Corpus is empty after filtering. Skipping reranking.")
+        else:
+            papers = rerank_paper(papers, corpus)
         if args.max_paper_num != -1:
             papers = papers[:args.max_paper_num]
         if args.use_llm_api:
