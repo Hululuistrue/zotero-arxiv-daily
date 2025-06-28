@@ -171,6 +171,8 @@ if __name__ == '__main__':
         logger.info("Reranking papers...")
         if not corpus:
             print("⚠️ Warning: Corpus is empty after filtering. Skipping reranking.")
+            for p in papers:
+                p.score = 0.5  # 给每篇论文一个默认分数，防止后续报错
         else:
             papers = rerank_paper(papers, corpus)
         if args.max_paper_num != -1:
