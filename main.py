@@ -80,9 +80,6 @@ def get_arxiv_paper(query:str, debug:bool=False) -> list[ArxivPaper]:
         except Exception as e:
             logger.warning(f"❗Failed to wrap paper {result.title[:50]}...: {e}")
     logger.info(f"✅ Total fetched from arXiv API: {count}, successfully parsed: {len(papers)}")
-        
-        if debug and len(papers) >= 5:
-            break
 
     return papers
 
