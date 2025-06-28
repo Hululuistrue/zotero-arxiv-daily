@@ -68,13 +68,29 @@ def get_arxiv_paper(query:str, debug:bool=False) -> list[ArxivPaper]:
             sort_order=arxiv.SortOrder.Descending,
         )
 
+
+
     papers = []
+    count = 0
     for result in client.results(search):
-        papers.append(ArxivPaper(result))
+        count += 1
+        try:
+            paper = ArxivPaper(result)
+            papers.append(paper)
+        except Exception as e:
+            logger.warning(f"❗Failed to wrap paper {result.title[:50]}...: {e}")
+    logger.info(f"✅ Total fetched from arXiv API: {count}, successfully parsed: {len(papers)}")
+        
         if debug and len(papers) >= 5:
             break
 
     return papers
+
+
+
+
+
+
 
 
 
